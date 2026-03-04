@@ -1,4 +1,4 @@
-# Xiaohongshu Search and Summarizer (小红书搜索与总结助理)
+# Xiaohongshu Search and Summarizer Skill (小红书搜索与总结Skill)
 
 这是一个专为 AI Agent 设计的技能（Skill），能够从小红书（Xiaohongshu）中无缝提取、分析并智能合成高质量的多模态内容（包括文本、图片和用户评论）。
 
