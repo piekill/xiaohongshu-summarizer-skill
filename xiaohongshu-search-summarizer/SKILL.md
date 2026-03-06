@@ -44,7 +44,7 @@ Execute the wrapper script in `scripts/run.sh`. It accepts the following argumen
 **Example execution**:
 
 ```bash
-/bin/bash /Users/junxing.yang/dev/webcraw/.agent/skills/xiaohongshu-search-summarizer/scripts/run.sh "openclaw使用场景" 10 "./xhs_report_openclaw_scenarios"
+/bin/bash ~/.claude/skills/xiaohongshu-search-summarizer/scripts/run.sh "openclaw使用场景" 10 "./xhs_report_openclaw_scenarios"
 ```
 
 ### Step 2: Read Raw Data & Images
