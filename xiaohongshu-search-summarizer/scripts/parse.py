@@ -3,6 +3,22 @@ import os
 import sys
 import requests
 import re
+from urllib.parse import urlparse
+
+
+ALLOWED_IMAGE_DOMAINS = (".xhscdn.com", ".xiaohongshu.com")
+
+
+def is_safe_image_url(url):
+    """Validate that an image URL is from a known Xiaohongshu domain and uses HTTPS."""
+    try:
+        parsed = urlparse(url)
+        if parsed.scheme != "https":
+            return False
+        hostname = parsed.hostname or ""
+        return any(hostname.endswith(domain) for domain in ALLOWED_IMAGE_DOMAINS)
+    except Exception:
+        return False
 
 if len(sys.argv) < 4:
     print("Usage: parse.py <keyword> <json_file_path> <output_dir>")
@@ -81,8 +97,11 @@ for i, post in enumerate(data):
         output_md += "\n"
     
     for j, img_url in enumerate(images):
+        if not is_safe_image_url(img_url):
+            print(f"Skipping untrusted image URL: {img_url}")
+            continue
         try:
-            res = requests.get(img_url, headers=headers, timeout=10)
+            res = requests.get(img_url, headers=headers, timeout=10, allow_redirects=False)
             if res.status_code == 200:
                 img_ext = "jpg"
                 if "webp" in img_url: img_ext = "webp"

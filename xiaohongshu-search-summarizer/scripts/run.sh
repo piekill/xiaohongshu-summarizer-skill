@@ -8,14 +8,21 @@ if [ -z "$KEYWORD" ]; then
     exit 1
 fi
 
+# Validate MAX_POSTS is a positive integer within bounds
+if ! [[ "$MAX_POSTS" =~ ^[0-9]+$ ]] || [ "$MAX_POSTS" -lt 1 ] || [ "$MAX_POSTS" -gt 50 ]; then
+    echo "Error: max_posts must be a positive integer between 1 and 50."
+    exit 1
+fi
+
 mkdir -p "$OUTPUT_DIR"
 
 SCRIPT_PATH="/tmp/xhs_scrape_$$.js"
 
-cat << EOF > "$SCRIPT_PATH"
+export KEYWORD MAX_POSTS
+cat << 'EOF' > "$SCRIPT_PATH"
 async page => {
-    const keyword = encodeURIComponent("${KEYWORD}");
-    const maxPosts = parseInt("${MAX_POSTS}", 10);
+    const keyword = encodeURIComponent(process.env.KEYWORD || "");
+    const maxPosts = parseInt(process.env.MAX_POSTS || "10", 10);
     await page.goto(\`https://www.xiaohongshu.com/search_result?keyword=\${keyword}&source=web_explore_feed\`, { waitUntil: 'domcontentloaded' });
     await page.waitForTimeout(4000); 
 
