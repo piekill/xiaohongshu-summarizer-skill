@@ -1,6 +1,7 @@
 ---
 name: xiaohongshu-search-summarizer
 description: Searches Xiaohongshu(小红书) for a given keyword, extracts the top N posts (including texts, images, and user comments), and then synthesizes a comprehensive final analytical report. Use this skill whenever the user wants to search Xiaohongshu for a specific topic, compile research seamlessly combining text and images, or needs an aggregated thematic summary of social media posts, comments, and visual data on a given subject.
+compatibility: Requires playwright-cli and python3, and the Python 'requests' package installed.
 ---
 
 # Xiaohongshu Search and Summarize
@@ -24,6 +25,7 @@ It operates in two distinct phases:
 ### Dependencies
 - `playwright-cli` (Must be available on the path)
 - `python3` (Required to download images and stitch the raw data markdown)
+- `requests` Python package (`pip install requests`) — used by `parse.py` to download images
 
 ---
 
